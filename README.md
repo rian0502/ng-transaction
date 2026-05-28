@@ -1,59 +1,229 @@
-# NgTransaction
+# Angular POS Learning Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Frontend aplikasi Point of Sale (POS) sederhana menggunakan Angular yang dibuat untuk proses belajar fullstack development dan integrasi dengan backend NestJS.
 
-## Development server
+Project ini digunakan sebagai playground untuk mempelajari:
 
-To start a local development server, run:
+* Angular Standalone Component
+* Angular Routing
+* Reactive Form
+* HTTP Client & REST API Integration
+* Authentication & Authorization
+* State Management dasar
+* Integrasi PostgreSQL melalui NestJS + Prisma ORM
+* Struktur aplikasi enterprise sederhana
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Angular
+* TypeScript
+* Bootstrap / ng-bootstrap
+* RxJS
+
+### Backend (Planned Integration)
+
+* NestJS
+* Prisma ORM
+* PostgreSQL
+
+---
+
+# Database Schema
+
+Project backend menggunakan Prisma ORM dengan PostgreSQL.
+
+## Entity Relationship Overview
+
+### User
+
+Menyimpan data pengguna aplikasi.
+
+| Field     | Type            |
+| --------- | --------------- |
+| id        | UUID            |
+| name      | String          |
+| email     | String          |
+| password  | String          |
+| role      | ADMIN / CASHIER |
+| createdAt | DateTime        |
+| updatedAt | DateTime        |
+
+---
+
+### Product
+
+Menyimpan data produk.
+
+| Field     | Type     |
+| --------- | -------- |
+| id        | UUID     |
+| name      | String   |
+| price     | Integer  |
+| stock     | Integer  |
+| createdAt | DateTime |
+| updatedAt | DateTime |
+
+---
+
+### TransactionHeader
+
+Menyimpan header transaksi.
+
+| Field           | Type     |
+| --------------- | -------- |
+| id              | UUID     |
+| userId          | UUID     |
+| total           | Integer  |
+| transactionDate | DateTime |
+
+---
+
+### TransactionDetail
+
+Menyimpan detail item transaksi.
+
+| Field         | Type    |
+| ------------- | ------- |
+| id            | UUID    |
+| transactionId | UUID    |
+| productId     | UUID    |
+| qty           | Integer |
+| price         | Integer |
+
+---
+
+# Planned Features
+
+## Authentication
+
+* Login
+* JWT Authentication
+* Role-based Authorization
+
+## Product Management
+
+* Create Product
+* Edit Product
+* Delete Product
+* Product List
+
+## Transaction
+
+* Create Transaction
+* Cart System
+* Transaction History
+* Transaction Detail
+
+## Dashboard
+
+* Sales Summary
+* Total Products
+* Total Transactions
+
+---
+
+# Project Structure
+
+```bash
+src/
+├── app/
+│   ├── core/
+│   ├── shared/
+│   ├── features/
+│   │   ├── auth/
+│   │   ├── users/
+│   │   ├── products/
+│   │   └── transactions/
+│   ├── layouts/
+│   └── services/
+```
+
+---
+
+# Getting Started
+
+## Clone Repository
+
+```bash
+git clone <your-repository-url>
+```
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Run Development Server
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Buka browser:
 
 ```bash
-ng generate component component-name
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+# Backend Integration
+
+Frontend ini dirancang untuk terhubung dengan REST API dari NestJS.
+
+Contoh endpoint:
+
+```http
+GET /products
+POST /products
+GET /transactions
+POST /auth/login
 ```
 
-## Building
+---
 
-To build the project run:
+# Prisma Schema
 
-```bash
-ng build
+```prisma
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["nest"]
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# Learning Goals
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Project ini dibuat sebagai media belajar untuk:
 
-```bash
-ng test
-```
+* Clean Architecture Frontend
+* Fullstack Monorepo Concept
+* Enterprise Folder Structure
+* RESTful API Integration
+* Authentication Flow
+* Angular Best Practice
+* Prisma ORM
+* PostgreSQL Relation
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+# Author
 
-```bash
-ng e2e
-```
+Developed by Rian
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# Notes
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Project ini masih dalam tahap pengembangan dan akan terus di-update seiring proses belajar Angular dan NestJS.
