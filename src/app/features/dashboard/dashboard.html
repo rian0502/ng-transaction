@@ -1,0 +1,35 @@
+<div class="container-fluid py-2">
+  <h2 class="mb-4 text-secondary">Dashboard Overview</h2>
+  
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card text-white bg-primary h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Total Transaksi</h5>
+          <h2 class="display-5 fw-bold">{{ summary.totalTransactions }}</h2>
+          <p class="card-text">Data bulan ini</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card text-white bg-success h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Produk Aktif</h5>
+          <h2 class="display-5 fw-bold">{{ summary.totalProducts }}</h2>
+          <p class="card-text">Tersedia di sistem</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card text-white bg-warning h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Total Pengguna</h5>
+          <h2 class="display-5 fw-bold">{{ summary.totalUsers }}</h2>
+          <p class="card-text">Akun terdaftar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
