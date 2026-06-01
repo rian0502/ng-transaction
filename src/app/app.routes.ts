@@ -1,16 +1,28 @@
 import { Routes } from '@angular/router';
 
 import { Users } from './features/users/users';
+import { Login } from './features/auth/login/login';
+import { authGuard } from './core/guards/auth-guard';
 import { Products } from './features/products/products';
-import { ProductForm } from './features/products/product-form/product-form';
 import { Dashboard } from './features/dashboard/dashboard';
+import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { Transactions } from './features/transactions/transactions';
+import { ProductForm } from './features/products/product-form/product-form';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
-    path: '', 
+    path: 'auth',
+    component: AuthLayout,
+    children: [
+      { path: 'login', component: Login },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: '',
     component: MainLayoutComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: Dashboard },
@@ -19,5 +31,6 @@ export const routes: Routes = [
       { path: 'products/create', component: ProductForm },
       { path: 'users', component: Users }
     ]
-  }
+  },
+  { path: '**', redirectTo: 'auth/login' }
 ];
