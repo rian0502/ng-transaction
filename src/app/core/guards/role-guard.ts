@@ -1,33 +1,24 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth-service';
 
 export const roleGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
   const router = inject(Router);
-  const token = localStorage.getItem('access_token');
+  const user = authService.currentUserValue;
 
-  if (!token) {
+  if (!user) {
     router.navigate(['/auth/login']);
     return false;
   }
 
-  try {
-    const payloadBase64 = token.split('.')[1];
-    const decodedPayload = JSON.parse(atob(payloadBase64));
+  const expectedRoles: string[] = route.data?.['roles'] || [];
 
-    const userRole = decodedPayload.role;
-
-    const expectedRoles: string[] = route.data['roles'];
-    
-    if (!expectedRoles || expectedRoles.includes(userRole)) {
-      return true;
-    } else {
-      alert('Akses Ditolak! Halaman ini khusus Administrator.');
-      router.navigate(['/dashboard']);
-      return false;
-    }
-  } catch (error) {
-    console.error('Gagal membaca token:', error);
-    router.navigate(['/auth/login']);
+  if (expectedRoles.length === 0 || expectedRoles.includes(user.role)) {
+    return true;
+  } else {
+    alert('Akses Ditolak! Anda tidak memiliki otoritas untuk halaman ini.');
+    router.navigate(['/dashboard']);
     return false;
   }
 };
