@@ -23,7 +23,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(credentials: { username: string; password: string }): Observable<LoginResponse> {
+  login(credentials: { email: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/login`, credentials, { withCredentials: true }).pipe(
       tap((response) => {
         if (response?.access_token) {

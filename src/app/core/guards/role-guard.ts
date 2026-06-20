@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth-service';
@@ -17,7 +18,12 @@ export const roleGuard: CanActivateFn = (route, state) => {
   if (expectedRoles.length === 0 || expectedRoles.includes(user.role)) {
     return true;
   } else {
-    alert('Akses Ditolak! Anda tidak memiliki otoritas untuk halaman ini.');
+    Swal.fire({
+      icon: 'error',
+      title: 'Akses Ditolak!',
+      text: 'Anda tidak memiliki otoritas untuk membuka halaman ini.',
+      confirmButtonColor: '#dc3545',
+    });
     router.navigate(['/dashboard']);
     return false;
   }
