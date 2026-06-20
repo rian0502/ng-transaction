@@ -1,38 +1,46 @@
 <div class="container-fluid py-3">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="text-secondary">Products</h3>
-    <a routerLink="/products/create" class="btn btn-primary">+ Product</a>
+    <a routerLink="/products/create" class="btn btn-outline-primary"><i class="bi bi-plus-lg"></i> Product</a>
   </div>
 
   <div class="card shadow-sm border-0">
     <div class="card-body p-0">
-      <table class="table table-hover mb-0">
+      <table class="table table-hover mb-0 align-middle">
         <thead class="table-light">
           <tr>
-            <th>ID</th>
+            <th>No</th>
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Status</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-          @for (product of productsList; track product.id) {
-            <tr>
-              <td><span class="badge bg-secondary">{{ product.id }}</span></td>
-              <td>{{ product.name }}</td>
-              <td>Rp {{ product.price | number }}</td>
-              <td>{{ product.stock }}</td>
-              <td>
-                <span class="badge" [class.bg-success]="product.stock > 0" [class.bg-danger]="product.stock === 0" [class.bg-warning]="product.stock <= 10">
-                  {{ product.stock > 0 ? 'Tersedia' : 'Habis' }}
-                </span>
-              </td>
-            </tr>
+          @for (product of productsList(); track product.id; let i = $index) {
+          <tr>
+            <td><span class="badge bg-secondary">{{ i + 1 }}</span></td>
+            <td>{{ product.name }}</td>
+            <td>Rp {{ product.price | number }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+              <span class="badge" [class.bg-success]="product.stock > 0" [class.bg-danger]="product.stock === 0"
+                [class.bg-warning]="product.stock <= 10">
+                {{ product.stock > 0 ? 'Tersedia' : 'Habis' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <a [routerLink]="['/products/edit', product.id]" class="btn btn-sm btn-outline-primary"
+                title="Edit Produk" data-bs-toggle="tooltip">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+            </td>
+          </tr>
           } @empty {
-            <tr>
-              <td colspan="7" class="text-center text-muted py-3">Product data is empty</td>
-            </tr>
+          <tr>
+            <td colspan="6" class="text-center text-muted py-3">Product data is empty</td>
+          </tr>
           }
         </tbody>
       </table>
