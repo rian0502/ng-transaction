@@ -32,6 +32,7 @@ export const routes: Routes = [
       { path: 'transactions', component: Transactions },
       { path: 'products', component: Products },
       { path: 'products/create', component: ProductForm },
+      { path: 'products/edit/:id', component: ProductForm },
       {
         path: 'users',
         component: Users,
